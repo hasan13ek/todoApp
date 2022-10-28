@@ -4,17 +4,21 @@ import 'package:numberpicker/numberpicker.dart';
 
 import '../utils/colors.dart';
 import '../utils/images.dart';
-bool isOn= false;
+
+int nimadir = -1;
+bool isOn = false;
+
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
-int _currentValue = 01;
+List<String> inpo=['AM','PM'];
+List<dynamic> indem = ["01","02","03","04","05","06","07","08","09",10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60];
+int _currentValue = 0;
 
 int _currentValue1 = 01;
-
 
 class _MainPageState extends State<MainPage> {
   @override
@@ -226,8 +230,7 @@ class _MainPageState extends State<MainPage> {
                       builder: (BuildContext contex) {
                         return AlertDialog(
                           backgroundColor: Color(0xff363636),
-                          content:
-                          Row(
+                          content: Row(
                             children: [
                               InkWell(
                                 child: Container(
@@ -265,127 +268,194 @@ class _MainPageState extends State<MainPage> {
                                   )),
                                 ),
                                 onTap: () {
+                                  Navigator.pop(context);
                                   showDialog(
                                       context: context,
-                                      builder: (BuildContext contex) {
-                                        return SizedBox(
-                                          width: 320,
-                                          height: 150,
-                                          child: AlertDialog(
-                                            backgroundColor: Color(0xff363636),
-                                            title: Column(
-                                              children: [
-                                                Text(
-                                                  "Choose time",
-                                                  style: TextStyle(
-                                                      color: Colors.white38,
-                                                      fontSize: 16),
-                                                ),
-                                                SizedBox(
-                                                  height: 6,
-                                                ),
-                                                Container(
-                                                  width: 300,
-                                                  height: 2,
-                                                  color: Colors.white24,
-                                                ),
-                                                SizedBox(
-                                                  height: 20,
-                                                ),
-                                            Column(
-                                              children: <Widget>[
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      builder: (BuildContext context) {
+                                        return StatefulBuilder(
+                                          builder: (context,state){
+                                            return SizedBox(
+                                              width: 320,
+                                              height: 150,
+                                              child: AlertDialog(
+                                                backgroundColor: Color(0xff363636),
+                                                title:
+                                                Column(
                                                   children: [
-                                                  Container(
-                                                    child: NumberPicker(
-                                                      haptics: false,
-                                                      value: _currentValue,
-                                                      minValue: 0,
-                                                      maxValue: 12,
-                                                      onChanged: (value) => setState(() => _currentValue = value),
+                                                    const Text(
+                                                      "Choose time",
+                                                      style: TextStyle(
+                                                          color: Colors.white38,
+                                                          fontSize: 16),
                                                     ),
-                                                    width: 64,
-                                                    height: 64,
-                                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),                                                    color: Color(0xff272727),
+                                                    const SizedBox(
+                                                      height: 6,
                                                     ),
-                                                  ),
-                                                  Container(
-                                                    child: NumberPicker(
-                                                      value: _currentValue1,
-                                                      haptics: true,
-                                                      step: 60,
-                                                      minValue: 0,
-                                                      maxValue: 60,
-                                                      onChanged: (value) => setState(() => _currentValue1 = value),
-                                                    ),
-                                                    width: 64,
-                                                    height: 64,
-                                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),                                                    color: Color(0xff272727),
-                                                    ),
-                                                  ),
                                                     Container(
-                                                      child:Center(child: Text("AM",style: TextStyle(color: Colors.white70),)),
-                                                      width: 64,
-                                                      height: 64,
-                                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),                                                      color: Color(0xff272727),
-                                                      ),
+                                                      width: 300,
+                                                      height: 2,
+                                                      color: Colors.white24,
                                                     ),
-
-                                                  ],)
-
-                                              ],
-                                            ),
-                                                SizedBox(height: 21,),
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    InkWell(
-                                                      child: Container(
-                                                        width: 123,
-                                                        height: 48,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.circular(4),
-                                                            color: Colors.transparent),
-                                                        child: Center(
-                                                            child: TextButton(
-                                                                onPressed: null,
+                                                    const SizedBox(
+                                                      height: 20,
+                                                    ),
+                                                    Column(
+                                                      children: <Widget>[
+                                                        StatefulBuilder(
+                                                          builder: (context,state){
+                                                            return SizedBox(
+                                                              width: 320,
+                                                              height: 150,
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                    child: NumberPicker(
+                                                                      haptics: true,
+                                                                      value:
+                                                                      _currentValue,
+                                                                      minValue: 0,
+                                                                      maxValue: 12,
+                                                                      onChanged: (value) =>
+                                                                          state(() =>
+                                                                          _currentValue =
+                                                                              value),
+                                                                    ),
+                                                                    width: 64,
+                                                                    height: 130,
+                                                                    decoration:
+                                                                    BoxDecoration(
+                                                                      borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                          4),
+                                                                      color: const Color(
+                                                                          0xff272727),
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    child: NumberPicker(
+                                                                      haptics: true,
+                                                                      value:
+                                                                      _currentValue1,
+                                                                      minValue: 0,
+                                                                      maxValue: 12,
+                                                                      onChanged: (value) =>
+                                                                          setState(() =>
+                                                                          _currentValue1 =
+                                                                              value),
+                                                                    ),
+                                                                    width: 64,
+                                                                    height: 130,
+                                                                    decoration:
+                                                                    BoxDecoration(
+                                                                      borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                          4),
+                                                                      color: const Color(
+                                                                          0xff272727),
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    child: const Center(
+                                                                        child: const Text(
+                                                                          "AM",
+                                                                          style: const TextStyle(
+                                                                              color: Colors
+                                                                                  .white70),
+                                                                        )),
+                                                                    width: 64,
+                                                                    height: 64,
+                                                                    decoration:
+                                                                    BoxDecoration(
+                                                                      borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                          4),
+                                                                      color: const Color(
+                                                                          0xff272727),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
+                                                          },
+                                                        )
+                                                      ],
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 21,
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                      children: [
+                                                        InkWell(
+                                                          child: Container(
+                                                            width: 123,
+                                                            height: 48,
+                                                            decoration: BoxDecoration(
+                                                                borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                    4),
+                                                                color: Colors
+                                                                    .transparent),
+                                                            child: const Center(
+                                                                child: TextButton(
+                                                                    onPressed: null,
+                                                                    child: Text(
+                                                                      "Cancel",
+                                                                      style: TextStyle(
+                                                                          color: Color(
+                                                                              0xff8577ff),
+                                                                          fontSize:
+                                                                          16),
+                                                                    ))),
+                                                          ),
+                                                          onTap: () {
+                                                            Navigator.pop(context);
+                                                          },
+                                                        ),
+                                                        InkWell(
+                                                          child: Container(
+                                                            width: 123,
+                                                            height: 48,
+                                                            decoration: BoxDecoration(
+                                                                borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                    4),
+                                                                color: const Color(
+                                                                    0xff8577ff)),
+                                                            child: const Center(
                                                                 child: Text(
-                                                                  "Cancel",
+                                                                  "Save",
                                                                   style: TextStyle(
-                                                                      color: Color(0xff8577ff),
+                                                                      color:
+                                                                      Colors.white,
                                                                       fontSize: 16),
-                                                                ))),
-                                                      ),
-                                                      onTap: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                    ),
-                                                    InkWell(
-                                                      child: Container(
-                                                        width: 123,
-                                                        height: 48,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.circular(4),
-                                                            color: Color(0xff8577ff)),
-                                                        child: Center(
-                                                            child: Text(
-                                                              "Save",
-                                                              style: TextStyle(
-                                                                  color: Colors.white, fontSize: 16),
-                                                            )),
-                                                      ),
-                                                      onTap: () {},
+                                                                )),
+                                                          ),
+                                                          onTap: () {
+                                                            Navigator.pop(context);
+                                                          },
+                                                        ),
+                                                      ],
                                                     ),
                                                   ],
                                                 ),
+                                                // content: ,
+                                              ),
 
-                                            ],
-                                            ),
-                                            // content: ,
-                                          ),
-                                        );
-                                      });
+                                            );
+                                          },
+
+                                        );});
                                 },
                               ),
                             ],
@@ -394,9 +464,11 @@ class _MainPageState extends State<MainPage> {
                       });
                   showDatePicker(
                     context: context,
+                    initialEntryMode: DatePickerEntryMode.calendarOnly,
+                    currentDate: DateTime.now(),
                     initialDate: DateTime(2022),
                     firstDate: DateTime(2022),
-                    lastDate: DateTime(2022),
+                    lastDate: DateTime(2024),
                   );
                 },
                 icon: Image.asset(
@@ -419,102 +491,153 @@ class _MainPageState extends State<MainPage> {
               ),
               IconButton(
                 onPressed: () {
-                  showDialog(context: context, builder: (BuildContext context){
-                    return SizedBox(
-                      width: 350,
-                      height: 350,
-                      child: AlertDialog(
-                        backgroundColor: Color(0xff363636),
-                        title: Column(children: [
-                          Text("Task priority",style: TextStyle(color: Colors.white),),
-                          SizedBox(height: 6,),
-                          Container(width: 340,height: 2,color: Colors.grey,)
-                        ],),
-                        content: Stack(
-                          children: [
-                            Container(
-                              width: 360,
-                              height: 270,
-                              // color: Colors.transparent,
-                              child: GridView.builder(itemCount: 10,shrinkWrap: true,scrollDirection: Axis.vertical,gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4), itemBuilder: (BuildContext contex,int index){
-                                return InkWell(
-                                  onTap: (){
-                                    setState(() {
-                                      isOn=!isOn;
-                                    });
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.only(left: 4,top: 4,right: 4),
-                                    width: 64,
-                                    height: 64,
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),color: isOn?Color(0xff8875ff):Color(0xff272727)),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 6),
-                                        child: Image.asset("assets/images/flag.png",scale: 2,),
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return StatefulBuilder(
+                          builder: (context,state){
+                            return SizedBox(
+                              width: 350,
+                              height: 350,
+                              child: AlertDialog(
+                                backgroundColor: Color(0xff363636),
+                                title: Column(
+                                  children: [
+                                    Text(
+                                      "Task priority",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    SizedBox(
+                                      height: 6,
+                                    ),
+                                    Container(
+                                      width: 340,
+                                      height: 2,
+                                      color: Colors.grey,
+                                    )
+                                  ],
+                                ),
+                                content: Stack(
+                                  children: [
+                                    Container(
+                                      width: 360,
+                                      height: 270,
+                                      // color: Colors.transparent,
+                                      child: GridView.builder(
+                                          itemCount: 10,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 4),
+                                          itemBuilder:
+                                              (BuildContext contex, int index) {
+                                            return InkWell(
+                                              onTap: () {
+                                                state(() {
+                                                  nimadir = index;
+                                                  isOn=!isOn;
+                                                });
+                                              },
+                                              child: Container(
+                                                margin: EdgeInsets.only(
+                                                    left: 4, top: 4, right: 4),
+                                                width: 64,
+                                                height: 64,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                    BorderRadius.circular(4),
+                                                    color: nimadir==index ? Color(0xff8875ff) : Color(0xff272727)),
+                                                child: Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets.only(
+                                                          top: 6),
+                                                      child: Image.asset(
+                                                        "assets/images/flag.png",
+                                                        scale: 2,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 6,
+                                                    ),
+                                                    Text(
+                                                      "${index + 1}",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                          FontWeight.w400),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          }),
+                                    ),
+                                    Positioned(
+                                      bottom: 4,
+                                      right: 10,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          InkWell(
+                                            child: Container(
+                                              width: 123,
+                                              height: 48,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(4),
+                                                  color: Colors.transparent),
+                                              child: Center(
+                                                  child: TextButton(
+                                                      onPressed: null,
+                                                      child: Text(
+                                                        "Cancel",
+                                                        style: TextStyle(
+                                                            color:
+                                                            Color(0xff8577ff),
+                                                            fontSize: 16),
+                                                      ))),
+                                            ),
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                          SizedBox(
+                                            width: 30,
+                                          ),
+                                          InkWell(
+                                            child: Container(
+                                              width: 123,
+                                              height: 48,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(4),
+                                                  color: Color(0xff8577ff)),
+                                              child: Center(
+                                                  child: Text(
+                                                    "Save",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16),
+                                                  )),
+                                            ),
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
                                       ),
-                                      SizedBox(height: 6,),
-                                      Text("${index+1}",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400),)
-                                    ],
-                                  ),
-                                  ),
-
-                                );
-                              }),
-                            ),
-                            Positioned(
-                              bottom: 4,
-                              right: 10,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InkWell(
-                                    child: Container(
-                                      width: 123,
-                                      height: 48,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(4),
-                                          color: Colors.transparent),
-                                      child: Center(
-                                          child: TextButton(
-                                              onPressed: null,
-                                              child: Text(
-                                                "Cancel",
-                                                style: TextStyle(
-                                                    color: Color(0xff8577ff),
-                                                    fontSize: 16),
-                                              ))),
                                     ),
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                  SizedBox(width: 30,),
-                                  InkWell(
-                                    child: Container(
-                                      width: 123,
-                                      height: 48,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(4),
-                                          color: Color(0xff8577ff)),
-                                      child: Center(
-                                          child: Text(
-                                            "Save",
-                                            style: TextStyle(
-                                                color: Colors.white, fontSize: 16),
-                                          )),
-                                    ),
-                                    onTap: () {},
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  });
+                            );
+                          },
+                        );
+                      });
                 },
                 icon: Image.asset(
                   "assets/images/flag.png",
