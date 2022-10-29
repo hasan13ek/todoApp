@@ -1,3 +1,7 @@
+import 'package:first_lesson/Widgets/test1.dart';
+import 'package:first_lesson/Widgets/test2.dart';
+import 'package:first_lesson/Widgets/test3.dart';
+import 'package:first_lesson/screens/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -7,21 +11,26 @@ import '../utils/images.dart';
 
 int nimadir = -1;
 bool isOn = false;
-
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
-}
-List<String> inpo=['AM','PM'];
-List<dynamic> indem = ["01","02","03","04","05","06","07","08","09",10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60];
+}List<dynamic> oka = [1,2,3,4,5,6,7,8,9,10,11,12];
 int _currentValue = 0;
-
-int _currentValue1 = 01;
-
+int okaginam = 0;
+int _currentValue1 = 0;
+List<Widget> items = [
+  Text("5",style: TextStyle(color: Colors.white),)
+  // Center(child: Text("${oka.map((e) => Text("$e"))}",style: TextStyle(color: Colors.white),))
+];
 class _MainPageState extends State<MainPage> {
+  final FixedExtentScrollController _controller = FixedExtentScrollController();
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
@@ -156,7 +165,8 @@ class _MainPageState extends State<MainPage> {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
+          return
+            AlertDialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20))),
             backgroundColor: Color(0xff363636),
@@ -228,7 +238,8 @@ class _MainPageState extends State<MainPage> {
                   showDialog(
                       context: context,
                       builder: (BuildContext contex) {
-                        return AlertDialog(
+                        return
+                          AlertDialog(
                           backgroundColor: Color(0xff363636),
                           content: Row(
                             children: [
@@ -282,7 +293,8 @@ class _MainPageState extends State<MainPage> {
                                                 title:
                                                 Column(
                                                   children: [
-                                                    const Text(
+                                                    const 
+                                                    Text(
                                                       "Choose time",
                                                       style: TextStyle(
                                                           color: Colors.white38,
@@ -311,20 +323,12 @@ class _MainPageState extends State<MainPage> {
                                                                 MainAxisAlignment
                                                                     .spaceBetween,
                                                                 children: [
+
                                                                   Container(
-                                                                    child: NumberPicker(
-                                                                      haptics: true,
-                                                                      value:
-                                                                      _currentValue,
-                                                                      minValue: 0,
-                                                                      maxValue: 12,
-                                                                      onChanged: (value) =>
-                                                                          state(() =>
-                                                                          _currentValue =
-                                                                              value),
-                                                                    ),
+                                                                    child: 
+                                                                    Test(),
                                                                     width: 64,
-                                                                    height: 130,
+                                                                    height: 104,
                                                                     decoration:
                                                                     BoxDecoration(
                                                                       borderRadius:
@@ -336,19 +340,10 @@ class _MainPageState extends State<MainPage> {
                                                                     ),
                                                                   ),
                                                                   Container(
-                                                                    child: NumberPicker(
-                                                                      haptics: true,
-                                                                      value:
-                                                                      _currentValue1,
-                                                                      minValue: 0,
-                                                                      maxValue: 12,
-                                                                      onChanged: (value) =>
-                                                                          setState(() =>
-                                                                          _currentValue1 =
-                                                                              value),
-                                                                    ),
+                                                                    child:
+                                                                    Test2(),
                                                                     width: 64,
-                                                                    height: 130,
+                                                                    height: 104,
                                                                     decoration:
                                                                     BoxDecoration(
                                                                       borderRadius:
@@ -360,13 +355,8 @@ class _MainPageState extends State<MainPage> {
                                                                     ),
                                                                   ),
                                                                   Container(
-                                                                    child: const Center(
-                                                                        child: const Text(
-                                                                          "AM",
-                                                                          style: const TextStyle(
-                                                                              color: Colors
-                                                                                  .white70),
-                                                                        )),
+                                                                    child:
+                                                                    Test3(),
                                                                     width: 64,
                                                                     height: 64,
                                                                     decoration:
@@ -662,3 +652,7 @@ class _MainPageState extends State<MainPage> {
         });
   }
 }
+
+
+
+
