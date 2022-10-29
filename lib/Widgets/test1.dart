@@ -41,11 +41,10 @@ class _TestState extends State<Test> {
             setState(() {
 
               _selectedItemIndex = index;
+
               print(_selectedItemIndex);
-<<<<<<< HEAD
-              print(_selectedItemIndex);
-=======
->>>>>>> origin/master
+
+
 
             })
           },

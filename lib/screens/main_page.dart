@@ -1,10 +1,10 @@
 import 'package:first_lesson/Widgets/test1.dart';
 import 'package:first_lesson/Widgets/test2.dart';
 import 'package:first_lesson/Widgets/test3.dart';
-import 'package:first_lesson/screens/main_page.dart';
+import 'package:first_lesson/database/local_database.dart';
+import 'package:first_lesson/models/todo_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:numberpicker/numberpicker.dart';
+import 'package:first_lesson/widgets/taskitem.dart';
 
 import '../utils/colors.dart';
 import '../utils/images.dart';
@@ -16,14 +16,12 @@ class MainPage extends StatefulWidget {
 
   @override
   State<MainPage> createState() => _MainPageState();
-}List<dynamic> oka = [1,2,3,4,5,6,7,8,9,10,11,12];
-int _currentValue = 0;
-int okaginam = 0;
-int _currentValue1 = 0;
-List<Widget> items = [
-  Text("5",style: TextStyle(color: Colors.white),)
-  // Center(child: Text("${oka.map((e) => Text("$e"))}",style: TextStyle(color: Colors.white),))
-];
+}
+ String title = "";
+String desc = "";
+String propirty = "";
+
+
 class _MainPageState extends State<MainPage> {
   final FixedExtentScrollController _controller = FixedExtentScrollController();
   @override
@@ -56,35 +54,53 @@ class _MainPageState extends State<MainPage> {
           const SizedBox(width: 12),
         ],
       ),
-      body: Container(
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 75,
-            ),
-            Image.asset(
-              "assets/images/img_1.png",
-              scale: 2,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              "What do you want to do today?",
-              style: TextStyle(color: Color(0xff868686), fontSize: 20),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              "Tap + to add your tasks",
-              style: TextStyle(color: Color(0xff868686), fontSize: 16),
-            )
-          ],
-        ),
+
+
+
+
+      body: FutureBuilder(
+        future: LocalDatabase.getList(),
+        builder:
+            (BuildContext context, AsyncSnapshot<List<TodoModel>> snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data!.isEmpty) {
+              return  Center(
+                  child: Icon(
+                    Icons.file_copy_outlined,
+                    color: Colors.white,
+                    size: 96,
+                  ));
+            }
+            return ListView.builder(
+              itemCount: snapshot.data?.length ?? 0,
+              itemBuilder: (context, index) {
+                return TaskItem(
+                  model: snapshot.data?[index],
+                  onDeleted: () {
+                    setState(() {});
+                  },
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text(snapshot.error.toString()),
+            );
+          }
+          return Center(child: CircularProgressIndicator());
+        },
       ),
+
+
+
+
+
+
+
+
+
+
+
       floatingActionButton: Stack(children: [
         Positioned(
           bottom: 34,
@@ -186,9 +202,12 @@ class _MainPageState extends State<MainPage> {
                   SizedBox(
                     height: 40,
                     child: TextFormField(
+                      onChanged: (value){
+                        title = value!;
+                      },
                       style: TextStyle(color: Colors.white70),
                       decoration: InputDecoration(
-                        hintText: 'writing',
+                        hintText: 'Title',
                         focusColor: Color(0xff868686),
                         hintStyle: TextStyle(color: Colors.white70),
                         filled: true,
@@ -211,6 +230,9 @@ class _MainPageState extends State<MainPage> {
                   SizedBox(
                     height: 40,
                     child: TextFormField(
+                      onChanged: (value){
+                        desc = value!;
+                      },
                       style: TextStyle(color: Colors.white70),
                       decoration: InputDecoration(
                         hintText: 'Description',
@@ -525,7 +547,7 @@ class _MainPageState extends State<MainPage> {
                                             return InkWell(
                                               onTap: () {
                                                 state(() {
-                                                  nimadir = index;
+                                                  propirty = index;
                                                   isOn=!isOn;
                                                 });
                                               },
@@ -615,6 +637,7 @@ class _MainPageState extends State<MainPage> {
                                                   )),
                                             ),
                                             onTap: () {
+                                              propirty = nimadir.toString();
                                               Navigator.pop(context);
                                             },
                                           ),
@@ -641,7 +664,11 @@ class _MainPageState extends State<MainPage> {
                 width: 18,
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  var newTodo = TodoModel(title: title, description: desc, date: "endi ", priority: propirty, isCompleted: 1);
+                  LocalDatabase.insertToDatabase(newTodo);
+                  Navigator.pop(context);
+                },
                 icon: Image.asset(
                   "assets/images/send.png",
                   scale: 2,
@@ -656,3 +683,32 @@ class _MainPageState extends State<MainPage> {
 
 
 
+// Container(
+// width: double.infinity,
+// height: MediaQuery.of(context).size.height,
+// child: Column(
+// children: [
+// SizedBox(
+// height: 75,
+// ),
+// Image.asset(
+// "assets/images/img_1.png",
+// scale: 2,
+// ),
+// SizedBox(
+// height: 10,
+// ),
+// Text(
+// "What do you want to do today?",
+// style: TextStyle(color: Color(0xff868686), fontSize: 20),
+// ),
+// SizedBox(
+// height: 10,
+// ),
+// Text(
+// "Tap + to add your tasks",
+// style: TextStyle(color: Color(0xff868686), fontSize: 16),
+// ),
+// ],
+// ),
+// ),
