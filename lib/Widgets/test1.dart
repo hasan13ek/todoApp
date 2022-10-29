@@ -42,7 +42,10 @@ class _TestState extends State<Test> {
 
               _selectedItemIndex = index;
               print(_selectedItemIndex);
+<<<<<<< HEAD
               print(_selectedItemIndex);
+=======
+>>>>>>> origin/master
 
             })
           },
