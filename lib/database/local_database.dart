@@ -57,6 +57,8 @@ class LocalDatabase{
       TodoFields.id,
       TodoFields.title,
       TodoFields.description,
+      TodoFields.priority,
+      TodoFields.date,
     ]);
 
     var list = listOfTodos.map((e) => TodoModel.fromJson(e)).toList();

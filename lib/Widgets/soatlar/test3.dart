@@ -1,3 +1,4 @@
+import 'package:first_lesson/Widgets/getdate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +16,8 @@ class _TestState3 extends State<Test3> {
   @override
   Widget build(BuildContext context) {
     List<Widget> items = [
-      Text("AM",style: TextStyle(color: Colors.white),),
-      Text("PM",style: TextStyle(color: Colors.white)),
+      const  Text("AM",style: TextStyle(color: Colors.white),),
+      const Text("PM",style: TextStyle(color: Colors.white)),
 
     ];
 
@@ -26,12 +27,13 @@ class _TestState3 extends State<Test3> {
           children: items,
           magnification: 2,
           useMagnifier: false,
-          physics: BouncingScrollPhysics(),
+          physics:const BouncingScrollPhysics(),
           diameterRatio: 1,
           squeeze:1,
           onSelectedItemChanged: (index) => {
             setState(() {
               _selectedItemIndex = index;
+              GetDate.getdate.ap=index==0?"AM":"PM";
             })
           },
         )

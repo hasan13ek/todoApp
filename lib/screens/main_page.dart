@@ -1,26 +1,40 @@
-import 'package:first_lesson/Widgets/test1.dart';
-import 'package:first_lesson/Widgets/test2.dart';
-import 'package:first_lesson/Widgets/test3.dart';
+import 'package:first_lesson/Widgets/alertichidagiAll.dart';
+import 'package:first_lesson/Widgets/almashuvchanRasm.dart';
+import 'package:first_lesson/Widgets/getdate.dart';
+import 'package:first_lesson/Widgets/nimadirochibkur.dart';
+import 'package:first_lesson/Widgets/soatlar/test1.dart';
+import 'package:first_lesson/Widgets/soatlar/test2.dart';
+import 'package:first_lesson/Widgets/soatlar/test3.dart';
+import 'package:first_lesson/Widgets/bottoms/yasamaFloatButton.dart';
 import 'package:first_lesson/database/local_database.dart';
 import 'package:first_lesson/models/todo_model.dart';
+import 'package:first_lesson/screens/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:first_lesson/widgets/taskitem.dart';
+import 'package:first_lesson/Widgets/getdate.dart';
 
+import '../Widgets/bottoms/bottomNavBar.dart';
+import '../Widgets/bottoms/button1.dart';
+import '../Widgets/bottoms/button2.dart';
+import '../Widgets/bottoms/button3.dart';
+import '../Widgets/textfiedlAll/textfield1.dart';
+import '../Widgets/textfiedlAll/textfield2.dart';
 import '../utils/colors.dart';
 import '../utils/images.dart';
 
 int nimadir = -1;
 bool isOn = false;
+
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
- String title = "";
+
+String title = "";
 String desc = "";
 String propirty = "";
-
 
 class _MainPageState extends State<MainPage> {
   final FixedExtentScrollController _controller = FixedExtentScrollController();
@@ -29,6 +43,7 @@ class _MainPageState extends State<MainPage> {
     _controller.dispose();
     super.dispose();
   }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
@@ -54,24 +69,20 @@ class _MainPageState extends State<MainPage> {
           const SizedBox(width: 12),
         ],
       ),
-
-
-
-
       body: FutureBuilder(
         future: LocalDatabase.getList(),
         builder:
             (BuildContext context, AsyncSnapshot<List<TodoModel>> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.isEmpty) {
-              return  Center(
-                  child: Icon(
-                    Icons.file_copy_outlined,
-                    color: Colors.white,
-                    size: 96,
-                  ));
+              return 
+              Center(
+                child:
+                almashuvchanRasm(),
+              );
             }
-            return ListView.builder(
+            return 
+            ListView.builder(
               itemCount: snapshot.data?.length ?? 0,
               itemBuilder: (context, index) {
                 return TaskItem(
@@ -83,38 +94,16 @@ class _MainPageState extends State<MainPage> {
               },
             );
           } else if (snapshot.hasError) {
-            return Center(
+            return 
+            Center(
               child: Text(snapshot.error.toString()),
             );
           }
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         },
       ),
-
-
-
-
-
-
-
-
-
-
-
       floatingActionButton: Stack(children: [
-        Positioned(
-          bottom: 34,
-          left: 155.9,
-          child: Container(
-            width: 90,
-            height: 45.5,
-            decoration: const BoxDecoration(
-                color: Color(0xff121212),
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.elliptical(76, 80),
-                    bottomRight: Radius.elliptical(76, 80))),
-          ),
-        ),
+        yasamaFloatButton(),
         Positioned(
           bottom: 40,
           left: 165,
@@ -122,57 +111,14 @@ class _MainPageState extends State<MainPage> {
             onTap: () {
               modalBottomsheetAddTask(context);
             },
-            child: Container(
-                height: 72,
-                width: 72,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.C_8687E7,
-                ),
-                child: const Center(
-                  child: Text(
-                    "+",
-                    style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white),
-                  ),
-                )),
+            child: nimadirochibkur(),
           ),
         ),
       ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: SizedBox(
         height: 80,
-        child: BottomNavigationBar(
-          iconSize: 28,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white.withOpacity(0.50),
-          backgroundColor: AppColors.C_363636,
-          type: BottomNavigationBarType.fixed,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_filled),
-              label: 'Index',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_month),
-              label: 'Calendar',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(null),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.watch_later_outlined),
-              label: 'Focus',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              label: 'Profile',
-            ),
-          ],
-        ),
+        child: bottomNavBar(),
       ),
     );
   }
@@ -181,493 +127,46 @@ class _MainPageState extends State<MainPage> {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
-          return
-            AlertDialog(
-            shape: RoundedRectangleBorder(
+          return AlertDialog(
+            shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20))),
-            backgroundColor: Color(0xff363636),
-            title: Text(
+            backgroundColor: const Color(0xff363636),
+            title: const Text(
               "Add Task",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.w600),
             ),
-            content: Container(
-              width: 400,
-              height: 100,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 40,
-                    child: TextFormField(
-                      onChanged: (value){
-                        title = value!;
-                      },
-                      style: TextStyle(color: Colors.white70),
-                      decoration: InputDecoration(
-                        hintText: 'Title',
-                        focusColor: Color(0xff868686),
-                        hintStyle: TextStyle(color: Colors.white70),
-                        filled: true,
-                        fillColor: Colors.transparent,
-                        border: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.white12, width: 2)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.white12, width: 2)),
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  SizedBox(
-                    height: 40,
-                    child: TextFormField(
-                      onChanged: (value){
-                        desc = value!;
-                      },
-                      style: TextStyle(color: Colors.white70),
-                      decoration: InputDecoration(
-                        hintText: 'Description',
-                        hintStyle: TextStyle(color: Colors.white38),
-                        filled: true,
-                        fillColor: Colors.transparent,
-                        border: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.white12, width: 2)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.white12, width: 2)),
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            content: alertichidagiAll(),
             actions: [
-              IconButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext contex) {
-                        return
-                          AlertDialog(
-                          backgroundColor: Color(0xff363636),
-                          content: Row(
-                            children: [
-                              InkWell(
-                                child: Container(
-                                  width: 123,
-                                  height: 48,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4),
-                                      color: Colors.transparent),
-                                  child: Center(
-                                      child: TextButton(
-                                          onPressed: null,
-                                          child: Text(
-                                            "Cancel",
-                                            style: TextStyle(
-                                                color: Color(0xff8577ff),
-                                                fontSize: 16),
-                                          ))),
-                                ),
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              InkWell(
-                                child: Container(
-                                  width: 123,
-                                  height: 48,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4),
-                                      color: Color(0xff8577ff)),
-                                  child: Center(
-                                      child: Text(
-                                    "Choose Time",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 16),
-                                  )),
-                                ),
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return StatefulBuilder(
-                                          builder: (context,state){
-                                            return SizedBox(
-                                              width: 320,
-                                              height: 150,
-                                              child: AlertDialog(
-                                                backgroundColor: Color(0xff363636),
-                                                title:
-                                                Column(
-                                                  children: [
-                                                    const 
-                                                    Text(
-                                                      "Choose time",
-                                                      style: TextStyle(
-                                                          color: Colors.white38,
-                                                          fontSize: 16),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 6,
-                                                    ),
-                                                    Container(
-                                                      width: 300,
-                                                      height: 2,
-                                                      color: Colors.white24,
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 20,
-                                                    ),
-                                                    Column(
-                                                      children: <Widget>[
-                                                        StatefulBuilder(
-                                                          builder: (context,state){
-                                                            return SizedBox(
-                                                              width: 320,
-                                                              height: 150,
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                                children: [
-
-                                                                  Container(
-                                                                    child: 
-                                                                    Test(),
-                                                                    width: 64,
-                                                                    height: 104,
-                                                                    decoration:
-                                                                    BoxDecoration(
-                                                                      borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                          4),
-                                                                      color: const Color(
-                                                                          0xff272727),
-                                                                    ),
-                                                                  ),
-                                                                  Container(
-                                                                    child:
-                                                                    Test2(),
-                                                                    width: 64,
-                                                                    height: 104,
-                                                                    decoration:
-                                                                    BoxDecoration(
-                                                                      borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                          4),
-                                                                      color: const Color(
-                                                                          0xff272727),
-                                                                    ),
-                                                                  ),
-                                                                  Container(
-                                                                    child:
-                                                                    Test3(),
-                                                                    width: 64,
-                                                                    height: 64,
-                                                                    decoration:
-                                                                    BoxDecoration(
-                                                                      borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                          4),
-                                                                      color: const Color(
-                                                                          0xff272727),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            );
-                                                          },
-                                                        )
-                                                      ],
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 21,
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                      children: [
-                                                        InkWell(
-                                                          child: Container(
-                                                            width: 123,
-                                                            height: 48,
-                                                            decoration: BoxDecoration(
-                                                                borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                    4),
-                                                                color: Colors
-                                                                    .transparent),
-                                                            child: const Center(
-                                                                child: TextButton(
-                                                                    onPressed: null,
-                                                                    child: Text(
-                                                                      "Cancel",
-                                                                      style: TextStyle(
-                                                                          color: Color(
-                                                                              0xff8577ff),
-                                                                          fontSize:
-                                                                          16),
-                                                                    ))),
-                                                          ),
-                                                          onTap: () {
-                                                            Navigator.pop(context);
-                                                          },
-                                                        ),
-                                                        InkWell(
-                                                          child: Container(
-                                                            width: 123,
-                                                            height: 48,
-                                                            decoration: BoxDecoration(
-                                                                borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                    4),
-                                                                color: const Color(
-                                                                    0xff8577ff)),
-                                                            child: const Center(
-                                                                child: Text(
-                                                                  "Save",
-                                                                  style: TextStyle(
-                                                                      color:
-                                                                      Colors.white,
-                                                                      fontSize: 16),
-                                                                )),
-                                                          ),
-                                                          onTap: () {
-                                                            Navigator.pop(context);
-                                                          },
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                                // content: ,
-                                              ),
-
-                                            );
-                                          },
-
-                                        );});
-                                },
-                              ),
-                            ],
-                          ),
-                        );
-                      });
-                  showDatePicker(
-                    context: context,
-                    initialEntryMode: DatePickerEntryMode.calendarOnly,
-                    currentDate: DateTime.now(),
-                    initialDate: DateTime(2022),
-                    firstDate: DateTime(2022),
-                    lastDate: DateTime(2024),
-                  );
-                },
-                icon: Image.asset(
-                  "assets/images/timer.png",
-                  scale: 2,
-                ),
-              ),
-              SizedBox(
+              button1(),
+              const SizedBox(
                 width: 5,
               ),
-              IconButton(
-                onPressed: () {},
-                icon: Image.asset(
-                  "assets/images/marker.png",
-                  scale: 2,
-                ),
-              ),
-              SizedBox(
+              button2(),
+              const SizedBox(
                 width: 10,
               ),
-              IconButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return StatefulBuilder(
-                          builder: (context,state){
-                            return SizedBox(
-                              width: 350,
-                              height: 350,
-                              child: AlertDialog(
-                                backgroundColor: Color(0xff363636),
-                                title: Column(
-                                  children: [
-                                    Text(
-                                      "Task priority",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    SizedBox(
-                                      height: 6,
-                                    ),
-                                    Container(
-                                      width: 340,
-                                      height: 2,
-                                      color: Colors.grey,
-                                    )
-                                  ],
-                                ),
-                                content: Stack(
-                                  children: [
-                                    Container(
-                                      width: 360,
-                                      height: 270,
-                                      // color: Colors.transparent,
-                                      child: GridView.builder(
-                                          itemCount: 10,
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 4),
-                                          itemBuilder:
-                                              (BuildContext contex, int index) {
-                                            return InkWell(
-                                              onTap: () {
-                                                state(() {
-                                                  propirty = index;
-                                                  isOn=!isOn;
-                                                });
-                                              },
-                                              child: Container(
-                                                margin: EdgeInsets.only(
-                                                    left: 4, top: 4, right: 4),
-                                                width: 64,
-                                                height: 64,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    BorderRadius.circular(4),
-                                                    color: nimadir==index ? Color(0xff8875ff) : Color(0xff272727)),
-                                                child: Column(
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                      const EdgeInsets.only(
-                                                          top: 6),
-                                                      child: Image.asset(
-                                                        "assets/images/flag.png",
-                                                        scale: 2,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 6,
-                                                    ),
-                                                    Text(
-                                                      "${index + 1}",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                          FontWeight.w400),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            );
-                                          }),
-                                    ),
-                                    Positioned(
-                                      bottom: 4,
-                                      right: 10,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          InkWell(
-                                            child: Container(
-                                              width: 123,
-                                              height: 48,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(4),
-                                                  color: Colors.transparent),
-                                              child: Center(
-                                                  child: TextButton(
-                                                      onPressed: null,
-                                                      child: Text(
-                                                        "Cancel",
-                                                        style: TextStyle(
-                                                            color:
-                                                            Color(0xff8577ff),
-                                                            fontSize: 16),
-                                                      ))),
-                                            ),
-                                            onTap: () {
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                          SizedBox(
-                                            width: 30,
-                                          ),
-                                          InkWell(
-                                            child: Container(
-                                              width: 123,
-                                              height: 48,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(4),
-                                                  color: Color(0xff8577ff)),
-                                              child: Center(
-                                                  child: Text(
-                                                    "Save",
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 16),
-                                                  )),
-                                            ),
-                                            onTap: () {
-                                              propirty = nimadir.toString();
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      });
-                },
-                icon: Image.asset(
-                  "assets/images/flag.png",
-                  scale: 2,
-                ),
+              button3(),
+              const SizedBox(
+                width: 10
               ),
-              SizedBox(
-                width: 10,
-              ),
-              SizedBox(
+              const SizedBox(
                 width: 18,
               ),
               IconButton(
                 onPressed: () {
-                  var newTodo = TodoModel(title: title, description: desc, date: "endi ", priority: propirty, isCompleted: 1);
+                  var newTodo = TodoModel(
+                      title: title,
+                      description: desc,
+                      date:
+                          "${GetDate.getdate.soat}  :  ${GetDate.getdate.minut}  ${GetDate.getdate.ap}",
+                      priority: propirty,
+                      isCompleted: 1);
                   LocalDatabase.insertToDatabase(newTodo);
                   Navigator.pop(context);
+                  setState(() {});
                 },
                 icon: Image.asset(
                   "assets/images/send.png",
@@ -681,34 +180,3 @@ class _MainPageState extends State<MainPage> {
 }
 
 
-
-
-// Container(
-// width: double.infinity,
-// height: MediaQuery.of(context).size.height,
-// child: Column(
-// children: [
-// SizedBox(
-// height: 75,
-// ),
-// Image.asset(
-// "assets/images/img_1.png",
-// scale: 2,
-// ),
-// SizedBox(
-// height: 10,
-// ),
-// Text(
-// "What do you want to do today?",
-// style: TextStyle(color: Color(0xff868686), fontSize: 20),
-// ),
-// SizedBox(
-// height: 10,
-// ),
-// Text(
-// "Tap + to add your tasks",
-// style: TextStyle(color: Color(0xff868686), fontSize: 16),
-// ),
-// ],
-// ),
-// ),

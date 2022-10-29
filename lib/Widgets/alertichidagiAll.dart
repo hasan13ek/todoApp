@@ -1,5 +1,5 @@
-import 'package:first_lesson/Widgets/textfield1.dart';
-import 'package:first_lesson/Widgets/textfield2.dart';
+import 'package:first_lesson/Widgets/textfiedlAll/textfield1.dart';
+import 'package:first_lesson/Widgets/textfiedlAll/textfield2.dart';
 import 'package:flutter/cupertino.dart';
 
 class alertichidagiAll extends StatelessWidget {
