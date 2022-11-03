@@ -24,16 +24,16 @@ class _StartScreenPageState extends State<StartScreenPage> {
         color: Color(0xff121212),
         child: Column(
           children: [
-            SizedBox(height: 58,),
+            SizedBox(height: MediaQuery.of(context).size.height*0.058,),
             Text("Welcome to UpTodo",style: TextStyle(color: Colors.white,fontSize: 32),),
-            SizedBox(height: 26,),
+            SizedBox(height: MediaQuery.of(context).size.height* 0.026,),
             Text("Please login to your account or create\n              new account to continue",style: TextStyle(color: Color(0xff868686),fontSize: 16),),
-            SizedBox(height: 370,),
+            SizedBox(height:MediaQuery.of(context).size.height* 0.5,),
             InkWell(
               onTap: (){Navigator.push(context, MaterialPageRoute(builder: (_)=>LoginPage()));},
               child: Container(
-                width: 327,
-                height: 48,
+                width: MediaQuery.of(context).size.width*0.8,
+                height: MediaQuery.of(context).size.height * 0.058,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   color: Color(0xff8875ff)
@@ -45,8 +45,8 @@ class _StartScreenPageState extends State<StartScreenPage> {
             InkWell(
               onTap: (){Navigator.push(context, MaterialPageRoute(builder: (_)=>RegisterPage()));},
               child: Container(
-                width: 327,
-                height: 48,
+                width: MediaQuery.of(context).size.width*0.8,
+                height: MediaQuery.of(context).size.height * 0.058,
                 decoration: BoxDecoration(
                   border: Border.all(width: 1,color: Color(0xff8875ff)),
                     borderRadius: BorderRadius.circular(4),

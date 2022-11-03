@@ -1,5 +1,8 @@
 import 'package:first_lesson/database/local_database.dart';
+import 'package:first_lesson/models/imgModels.dart';
 import 'package:first_lesson/models/todo_model.dart';
+import 'package:first_lesson/screens/main_page.dart';
+import 'package:first_lesson/utils/colors.dart';
 import 'package:flutter/material.dart';
 bool isOn = false;
 class TaskItem extends StatefulWidget {
@@ -102,17 +105,17 @@ class _TaskItemState extends State<TaskItem> {
             ),
           ),
           Container(
-            width: 112,
             height: 30,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),color: Color(0xff809cff)),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),color: AppColors.ranglar[widget.model?.isCompleted??0]),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
               const  Padding(padding: EdgeInsets.only(top: 2,right: 2,left: 2,bottom: 2)),
-                Image.asset("assets/images/uni.png",scale: 2,),
-            const Padding(
-               padding:  EdgeInsets.only(right: 8),
-               child:    Text(("University"),style: TextStyle(color: Colors.white),),
+                Image.asset("${ImageModels.Images[0].images[widget.model?.isCompleted??0]}",scale: 2.4,),
+             const SizedBox(width: 6,),
+             Padding(
+               padding: const EdgeInsets.only(right: 8),
+               child:    Text("${ImageModels.Images[1].images[widget.model?.isCompleted??0]}",style: TextStyle(color: Colors.white),),
              )
               ],
             ),

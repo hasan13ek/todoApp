@@ -12,7 +12,8 @@ class textfield1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 40,
-      child: TextFormField(
+      child: 
+      TextFormField(
         onChanged: (value){
           title = value;
         },

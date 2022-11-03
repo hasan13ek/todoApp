@@ -20,26 +20,26 @@ class _LoginPageState extends State<RegisterPage> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Color(0xff121212),
-          leading: Icon(Icons.arrow_back_ios,color: Color(0xff868686),),
+          backgroundColor: const Color(0xff121212),
+          leading: const Icon(Icons.arrow_back_ios,color: Color(0xff868686),),
         ),
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.only(left: 24,right: 24,top: 10),
+            padding: const EdgeInsets.only(left: 24,right: 24,top: 10),
             width: double.infinity,
             height: MediaQuery.of(context).size.height,
-            color: Color(0xff121212),
+            color: const Color(0xff121212),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Register",style: TextStyle(color: Colors.white,fontSize: 32),),
-                SizedBox(height: 22,),
+                const Text("Register",style: TextStyle(color: Colors.white,fontSize: 32),),
+                 SizedBox(height: MediaQuery.of(context).size.height*0.022,),
                 Text("Username",style: TextStyle(color: Colors.white.withOpacity(0.8),fontSize: 16),),
                 Padding(
                   padding:
                   const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
                   child: TextFormField(
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "Please enter Username";
@@ -62,13 +62,13 @@ class _LoginPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 15,),
+                const SizedBox(height: 15,),
                 Text("Password",style: TextStyle(color: Colors.white.withOpacity(0.8),fontSize: 16),),
                 Padding(
                   padding:
                   const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
                   child: TextFormField(
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "Please enter Password";
@@ -91,13 +91,13 @@ class _LoginPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 15,),
+                const SizedBox(height: 15,),
                 Text("Confirm Password",style: TextStyle(color: Colors.white.withOpacity(0.8),fontSize: 16),),
                 Padding(
                   padding:
                   const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
                   child: TextFormField(
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "Please enter Confirm Password";
@@ -120,89 +120,89 @@ class _LoginPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 32,),
+                 SizedBox(height: MediaQuery.of(context).size.height*0.032,),
                 InkWell(
                   onTap: (){
                     if(_formKey.currentState!.validate()){
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>HaCHizing()), (route) => false);
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const HaCHizing()), (route) => false);
 
                     }
                   },
                   child: Container(
-                    width: 340,
-                    height: 48,
+                    width: MediaQuery.of(context).size.width*0.9,
+                    height: MediaQuery.of(context).size.height*0.058,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
-                        color: Color(0xff8875ff)
+                        color: const Color(0xff8875ff)
                     ),
-                    child: Center(child: Text("Register",style: TextStyle(color: Colors.white,fontSize: 16),)),
+                    child: const Center(child: Text("Register",style: TextStyle(color: Colors.white,fontSize: 16),)),
                   ),
                 ),
-                SizedBox(height: 21,),
+                const SizedBox(height: 21,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: 154,
+                      width: MediaQuery.of(context).size.width*0.4,
                       height: 1,
-                      color: Color(0xff979797),
+                      color: const Color(0xff979797),
                     ),
-                    Text("or",style: TextStyle(color: Color(0xff979797),fontSize: 16),),
+                    const Text("or",style: TextStyle(color: Color(0xff979797),fontSize: 16),),
                     Container(
                       width: 154,
                       height: 1,
-                      color: Color(0xff979797),
+                      color: const Color(0xff979797),
                     )
                   ],
                 ),
-                SizedBox(height: 20.0,),
+                const SizedBox(height: 20.0,),
                 InkWell(
                   onTap: (){},
                   child: Container(
-                    width: 340,
-                    height: 48,
+                    width: MediaQuery.of(context).size.width*0.9,
+                    height: MediaQuery.of(context).size.height*0.058,
                     decoration: BoxDecoration(
-                      border: Border.all(width: 1,color: Color(0xff8875ff)),
+                      border: Border.all(width: 1,color: const Color(0xff8875ff)),
                       borderRadius: BorderRadius.circular(4),
-                      color: Color(0xff121212),
+                      color: const Color(0xff121212),
                     ),
                     child: Center(child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset("assets/images/go.png",scale: 2,),
-                        SizedBox(width: 10,),
-                        Text("Register with Google",style: TextStyle(color: Colors.white,fontSize: 16),),
+                        const SizedBox(width: 10,),
+                        const Text("Register with Google",style: TextStyle(color: Colors.white,fontSize: 16),),
                       ],
                     )),
                   ),
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 InkWell(
                   onTap: (){},
                   child: Container(
-                    width: 340,
-                    height: 48,
+                    width: MediaQuery.of(context).size.width*0.9,
+                    height: MediaQuery.of(context).size.height*0.058,
                     decoration: BoxDecoration(
-                      border: Border.all(width: 1,color: Color(0xff8875ff)),
+                      border: Border.all(width: 1,color: const Color(0xff8875ff)),
                       borderRadius: BorderRadius.circular(4),
-                      color: Color(0xff121212),
+                      color: const Color(0xff121212),
                     ),
                     child: Center(child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset("assets/images/apple.png",scale: 2,),
-                        SizedBox(width: 10,),
-                        Text("Register with Appe",style: TextStyle(color: Colors.white,fontSize: 16),),
+                        const SizedBox(width: 10,),
+                        const Text("Register with Appe",style: TextStyle(color: Colors.white,fontSize: 16),),
                       ],
                     )),
                   ),
                 ),
-                SizedBox(height: 12,),
+                const SizedBox(height: 12,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have an account?",style: TextStyle(color: Color(0xff979797)),),
-                    TextButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (_)=>LoginPage()));},child: Text("Login",style: TextStyle(color: Colors.white),))
+                    const Text("Don't have an account?",style: TextStyle(color: Color(0xff979797)),),
+                    TextButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (_)=>const LoginPage()));},child: const Text("Login",style: TextStyle(color: Colors.white),))
                   ],
                 )
               ],

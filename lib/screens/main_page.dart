@@ -31,10 +31,11 @@ class MainPage extends StatefulWidget {
   @override
   State<MainPage> createState() => _MainPageState();
 }
-
+String search = "";
 String title = "";
 String desc = "";
 String propirty = "";
+int zaybal = 0;
 
 class _MainPageState extends State<MainPage> {
   final FixedExtentScrollController _controller = FixedExtentScrollController();
@@ -69,41 +70,74 @@ class _MainPageState extends State<MainPage> {
           const SizedBox(width: 12),
         ],
       ),
-      body: FutureBuilder(
-        future: LocalDatabase.getList(),
-        builder:
-            (BuildContext context, AsyncSnapshot<List<TodoModel>> snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data!.isEmpty) {
-              return 
-              Center(
-                child:
-                almashuvchanRasm(),
-              );
-            }
-            return 
-            ListView.builder(
-              itemCount: snapshot.data?.length ?? 0,
-              itemBuilder: (context, index) {
-                return TaskItem(
-                  model: snapshot.data?[index],
-                  onDeleted: () {
-                    setState(() {});
-                  },
-                );
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: TextField(
+              onChanged: (val) {
+                setState(() {
+                  search = val;
+                });
               },
-            );
-          } else if (snapshot.hasError) {
-            return 
-            Center(
-              child: Text(snapshot.error.toString()),
-            );
-          }
-          return const Center(child: CircularProgressIndicator());
-        },
+              style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                prefixIcon: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+                filled: true,
+                fillColor: AppColors.C_363636.withOpacity(0.5),
+                enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    )),
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.red,
+                    )),
+              ),
+            ),
+          ),
+          Expanded(
+            child: FutureBuilder(
+              future: LocalDatabase.getTaskByTitle(title: search),
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<TodoModel>> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!.isEmpty) {
+                    return
+                     Center(
+                      child:
+                      almashuvchanRasm(),
+                    );
+                  }
+                  return
+                  ListView.builder(
+                    itemCount: snapshot.data?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      return TaskItem(
+                        model: snapshot.data?[index],
+                        onDeleted: () {
+                          setState(() {});
+                        },
+                      );
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return
+                  Center(
+                    child: Text(snapshot.error.toString()),
+                  );
+                }
+                return const Center(child: CircularProgressIndicator());
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: Stack(children: [
-        yasamaFloatButton(),
+        const yasamaFloatButton(),
         Positioned(
           bottom: 40,
           left: 165,
@@ -111,14 +145,14 @@ class _MainPageState extends State<MainPage> {
             onTap: () {
               modalBottomsheetAddTask(context);
             },
-            child: nimadirochibkur(),
+            child: const nimadirochibkur(),
           ),
         ),
       ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: SizedBox(
-        height: 80,
-        child: bottomNavBar(),
+        height:  MediaQuery.of(context).size.height*0.080,
+        child: const bottomNavBar(),
       ),
     );
   }
@@ -138,32 +172,31 @@ class _MainPageState extends State<MainPage> {
                   fontSize: 20,
                   fontWeight: FontWeight.w600),
             ),
-            content: alertichidagiAll(),
+            content: const alertichidagiAll(),
             actions: [
-              button1(),
-              const SizedBox(
-                width: 5,
+              const button1(),
+               SizedBox(
+                width: MediaQuery.of(context).size.width*0.024,
               ),
-              button2(),
-              const SizedBox(
-                width: 10,
+              const button2(),
+               SizedBox(
+                width: MediaQuery.of(context).size.width*0.04,
               ),
-              button3(),
-              const SizedBox(
-                width: 10
+              const button3(),
+               SizedBox(
+                width: MediaQuery.of(context).size.width*0.04,
               ),
-              const SizedBox(
-                width: 18,
+               SizedBox(
+                width: MediaQuery.of(context).size.width*0.04,
               ),
               IconButton(
                 onPressed: () {
                   var newTodo = TodoModel(
                       title: title,
                       description: desc,
-                      date:
-                          "${GetDate.getdate.soat}  :  ${GetDate.getdate.minut}  ${GetDate.getdate.ap}",
+                      date: "${GetDate.getdate.soat}  :  ${GetDate.getdate.minut}  ${GetDate.getdate.ap}",
                       priority: propirty,
-                      isCompleted: 1);
+                      isCompleted: zaybal);
                   LocalDatabase.insertToDatabase(newTodo);
                   Navigator.pop(context);
                   setState(() {});

@@ -86,7 +86,7 @@ class _TestState2 extends State<Test2> {
           children: items,
           magnification: 2,
           useMagnifier: false,
-          physics: const BouncingScrollPhysics(),
+          physics: const FixedExtentScrollPhysics(),
           diameterRatio: 1,
           squeeze:1,
           onSelectedItemChanged: (index) => {

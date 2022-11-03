@@ -15,7 +15,8 @@ class button3 extends StatelessWidget {
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              return StatefulBuilder(
+              return
+                StatefulBuilder(
                 builder: (context,state){
                   return SizedBox(
                     width: 350,
