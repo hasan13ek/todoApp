@@ -1,4 +1,5 @@
 import 'package:expandable_page_view/expandable_page_view.dart';
+import 'package:first_lesson/screens/login_page.dart';
 import 'package:first_lesson/screens/start_screen_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,102 +26,116 @@ class _OnboadingPageState extends State<OnboadingPage> {
         backgroundColor: const Color(0xff121212),
         leading: Center(
             child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=>StartScreenPage()));
+                },
                 child: const Text(
                   "SKIP",
                   style: TextStyle(color: Color(0xff868686), fontSize: 16),
                 ))),
       ),
-      body: Container(
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height,
-        color: const Color(0xff121212),
-        child: Stack(
-          children: [
-            Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height*5,
-              child: ExpandablePageView.builder(
-                onPageChanged: (index) {
-                  setState(() {
-                    Imageindicator = index;
-                  });
-                },
-                itemBuilder: (context, int index) {
-                  return Column(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        height: MediaQuery.of(context).size.height*0.4,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                                "${PageviewModel.Postlaruchun[0].rasm[index]}"),
+      body: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height,
+          color: const Color(0xff121212),
+          child: Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height*5,
+                child: ExpandablePageView.builder(
+                  onPageChanged: (index) {
+                    setState(() {
+                      Imageindicator = index;
+
+                    });
+                  },
+                  itemBuilder: (context, int index) {
+                    return Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          height: MediaQuery.of(context).size.height*0.4,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                  "${PageviewModel.Postlaruchun[0].rasm[Imageindicator]}"),
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 90,
-                      ),
-                      Text(
-                        "${PageviewModel.Postlaruchun[0].bodyWords[index]}",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 24,
-                          color: Colors.white,
+                        const SizedBox(
+                          height: 50,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 42,
-                      ),
-                      Text(
-                        "${PageviewModel.Postlaruchun[0].bodyPasi[index]}",
-                        style:
-                            const TextStyle(color: Color(0xff999999), fontSize: 16),
-                      ),
-                    ],
-                  );
-                },
-                itemCount: 3,
-                scrollDirection: Axis.horizontal,
-              ),
-            ),
-            Positioned(
-                top: 330, right: 130, child: postIndicator(Imageindicator)),
-            Positioned(
-              right: 25.0,
-              top: 620,
-              child: InkWell(
-                onTap: () {
-                  if (Imageindicator == 2) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const StartScreenPage()));
-                  }
-                },
-                child: Container(
-                  width: Imageindicator == 2 ? MediaQuery.of(context).size.width*0.38 : MediaQuery.of(context).size.height*0.09,
-                  height: MediaQuery.of(context).size.height*0.048,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: const Color(0xff8875FF)),
-                  child: Center(
-                      child: Text(
-                    "${Imageindicator == 2 ? nima : "NEXT"}",
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
-                  )),
+                        Text(
+                          "${PageviewModel.Postlaruchun[0].bodyWords[Imageindicator]}",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 24,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(
+                          height:42,
+                        ),
+                        Text(
+                          "${PageviewModel.Postlaruchun[0].bodyPasi[Imageindicator]}",
+                          style:
+                              const TextStyle(color: Color(0xff999999), fontSize: 16),
+                        ),
+                      ],
+                    );
+                  },
+                  itemCount: 3,
+                  scrollDirection: Axis.horizontal,
                 ),
               ),
-            ),
-            Positioned(
-                left: 24,
-                top: 622,
-                child: TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'BACK',
-                      style: TextStyle(color: Color(0xff868686), fontSize: 16),
-                    )))
-          ],
+              Positioned(
+                  top: 300, right: 130, child: postIndicator(Imageindicator)),
+              Positioned(
+                right: 25.0,
+                top: 620,
+                child: InkWell(
+                  onTap: () {
+                    if (Imageindicator == 2) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => const StartScreenPage()));
+                    }else if(Imageindicator!=2){
+                      setState(() {
+                        Imageindicator++;
+
+                      });
+                    }
+                  },
+                  child: Container(
+                    width: Imageindicator == 2 ? MediaQuery.of(context).size.width*0.38 : MediaQuery.of(context).size.height*0.09,
+                    height: MediaQuery.of(context).size.height*0.048,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: const Color(0xff8875FF)),
+                    child: Center(
+                        child: Text(
+                      "${Imageindicator == 2 ? nima : "NEXT"}",
+                      style: const TextStyle(color: Colors.white, fontSize: 16),
+                    )),
+                  ),
+                ),
+              ),
+              Positioned(
+                  left: 24,
+                  top: 622,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          Imageindicator--;
+                        });
+                      },
+                      child: const Text(
+                        'BACK',
+                        style: TextStyle(color: Color(0xff868686), fontSize: 16),
+                      )))
+            ],
+          ),
         ),
       ),
     );

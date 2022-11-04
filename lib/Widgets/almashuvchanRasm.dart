@@ -11,7 +11,7 @@ class almashuvchanRasm extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(
-            height: 75,
+            height: 25,
           ),
           Image.asset(
             "assets/images/img_1.png",

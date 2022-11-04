@@ -1,6 +1,7 @@
 import 'package:first_lesson/Widgets/soatlar/test1.dart';
 import 'package:first_lesson/Widgets/soatlar/test2.dart';
 import 'package:first_lesson/Widgets/soatlar/test3.dart';
+import 'package:first_lesson/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -231,12 +232,18 @@ class button1 extends StatelessWidget {
               );
             });
         showDatePicker(
+          builder: ((context, child) => Theme(
+              data: Theme.of(context).copyWith(
+                  dialogBackgroundColor: AppColors.C_363636,
+                  colorScheme: ColorScheme.dark()),
+              child: child!)),
           context: context,
           initialEntryMode: DatePickerEntryMode.calendarOnly,
           currentDate: DateTime.now(),
           initialDate: DateTime(2022),
           firstDate: DateTime(2022),
           lastDate: DateTime(2024),
+
         );
       },
       icon: Image.asset(

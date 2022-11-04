@@ -51,7 +51,7 @@ class button2 extends StatelessWidget {
                                 crossAxisCount: 3),
                             itemBuilder:
                                 (BuildContext contex, int index) {
-                              return InkWell(
+                              return GestureDetector(
                                 onTap: () {
                                   state(() {
                                     nimadir=index;

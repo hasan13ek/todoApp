@@ -6,6 +6,7 @@ import 'package:first_lesson/Widgets/soatlar/test1.dart';
 import 'package:first_lesson/Widgets/soatlar/test2.dart';
 import 'package:first_lesson/Widgets/soatlar/test3.dart';
 import 'package:first_lesson/Widgets/bottoms/yasamaFloatButton.dart';
+import 'package:first_lesson/Widgets/update_task_widget.dart';
 import 'package:first_lesson/database/local_database.dart';
 import 'package:first_lesson/models/todo_model.dart';
 import 'package:first_lesson/screens/main_page.dart';
@@ -31,6 +32,7 @@ class MainPage extends StatefulWidget {
   @override
   State<MainPage> createState() => _MainPageState();
 }
+int _selectedIndex = 0;
 String search = "";
 String title = "";
 String desc = "";
@@ -47,13 +49,14 @@ class _MainPageState extends State<MainPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
       appBar: AppBar(
         toolbarHeight: 80,
         centerTitle: true,
         leading: IconButton(
           onPressed: () {},
-          icon: Image.asset("${AppImages.ic_menu1}"),
+          icon: Image.asset(AppImages.ic_menu1),
         ),
         backgroundColor: Colors.black,
         title: const Text("HomePage"),
@@ -90,30 +93,27 @@ class _MainPageState extends State<MainPage> {
                 fillColor: AppColors.C_363636.withOpacity(0.5),
                 enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.white,
-                    )),
+                  color: Colors.white,
+                )),
                 border: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.red,
-                    )),
+                  color: Colors.red,
+                )),
               ),
             ),
           ),
           Expanded(
             child: FutureBuilder(
               future: LocalDatabase.getTaskByTitle(title: search),
-              builder:
-                  (BuildContext context, AsyncSnapshot<List<TodoModel>> snapshot) {
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<TodoModel>> snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data!.isEmpty) {
-                    return
-                     Center(
-                      child:
-                      almashuvchanRasm(),
+                    return const Center(
+                      child: almashuvchanRasm(),
                     );
                   }
-                  return
-                  ListView.builder(
+                  return ListView.builder(
                     itemCount: snapshot.data?.length ?? 0,
                     itemBuilder: (context, index) {
                       return TaskItem(
@@ -121,12 +121,31 @@ class _MainPageState extends State<MainPage> {
                         onDeleted: () {
                           setState(() {});
                         },
+                        onSelected: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                                  backgroundColor:const Color(0xff363636),
+                                  content: Container(
+                                    width: double.infinity,
+                                    height: 350,
+                                    child: UpdateTaskWidget(
+                                        onUpdatedTask: () {
+                                          setState(() {});
+                                        },
+                                        todo: snapshot.data![index]),
+                                  ),
+                                );
+                              });
+                        },
                       );
                     },
                   );
                 } else if (snapshot.hasError) {
-                  return
-                  Center(
+                  return Center(
                     child: Text(snapshot.error.toString()),
                   );
                 }
@@ -137,27 +156,27 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
       floatingActionButton: Stack(children: [
-        const yasamaFloatButton(),
+        yasamaFloatButton(),
         Positioned(
           bottom: 40,
           left: 165,
-          child: InkWell(
+          child: GestureDetector(
             onTap: () {
               modalBottomsheetAddTask(context);
             },
-            child: const nimadirochibkur(),
+            child: nimadirochibkur(),
           ),
         ),
       ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: SizedBox(
-        height:  MediaQuery.of(context).size.height*0.080,
-        child: const bottomNavBar(),
+      bottomNavigationBar:const SizedBox(
+        height: 80,
+        child: bottomNavBar(),
       ),
     );
   }
 
-  Future modalBottomsheetAddTask(context) {
+   modalBottomsheetAddTask(context) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -175,26 +194,27 @@ class _MainPageState extends State<MainPage> {
             content: const alertichidagiAll(),
             actions: [
               const button1(),
-               SizedBox(
-                width: MediaQuery.of(context).size.width*0.024,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.024,
               ),
               const button2(),
-               SizedBox(
-                width: MediaQuery.of(context).size.width*0.04,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.04,
               ),
               const button3(),
-               SizedBox(
-                width: MediaQuery.of(context).size.width*0.04,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.04,
               ),
-               SizedBox(
-                width: MediaQuery.of(context).size.width*0.04,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.04,
               ),
               IconButton(
                 onPressed: () {
                   var newTodo = TodoModel(
                       title: title,
                       description: desc,
-                      date: "${GetDate.getdate.soat}  :  ${GetDate.getdate.minut}  ${GetDate.getdate.ap}",
+                      date:
+                          "${GetDate.getdate.soat}  :  ${GetDate.getdate.minut}  ${GetDate.getdate.ap}",
                       priority: propirty,
                       isCompleted: zaybal);
                   LocalDatabase.insertToDatabase(newTodo);
@@ -210,6 +230,5 @@ class _MainPageState extends State<MainPage> {
           );
         });
   }
+
 }
-
-

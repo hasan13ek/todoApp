@@ -1,14 +1,30 @@
+import 'package:first_lesson/Widgets/nimadirochibkur.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:first_lesson/screens/main_page.dart';
 
-class bottomNavBar extends StatelessWidget {
+class bottomNavBar extends StatefulWidget {
   const bottomNavBar({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<bottomNavBar> createState() => _bottomNavBarState();
+}
+
+int _selectedIndex = 0;
+
+class _bottomNavBarState extends State<bottomNavBar> {
+  @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
+    return
+      BottomNavigationBar(
+      currentIndex: _selectedIndex,
+      onTap: (index) {
+        setState(() {
+          _selectedIndex = index;
+        });
+      },
       iconSize: 28,
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white.withOpacity(0.50),
@@ -24,8 +40,10 @@ class bottomNavBar extends StatelessWidget {
           label: 'Calendar',
         ),
         BottomNavigationBarItem(
-          icon: Icon(null),
-          label: '',
+          icon: Icon(
+           null
+          ),
+          label: 'Add',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.watch_later_outlined),
@@ -39,4 +57,3 @@ class bottomNavBar extends StatelessWidget {
     );
   }
 }
-

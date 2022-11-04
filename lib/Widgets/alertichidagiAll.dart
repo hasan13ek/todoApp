@@ -14,9 +14,9 @@ class alertichidagiAll extends StatelessWidget {
       height: 100,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children:const [
           textfield1(),
-          const SizedBox(
+           SizedBox(
             height: 12,
           ),
           textfield2(),
