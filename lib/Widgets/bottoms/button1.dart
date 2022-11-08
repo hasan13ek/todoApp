@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:first_lesson/Widgets/soatlar/test1.dart';
 import 'package:first_lesson/Widgets/soatlar/test2.dart';
 import 'package:first_lesson/Widgets/soatlar/test3.dart';
@@ -50,10 +51,10 @@ class button1 extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
                             color:const Color(0xff8577ff)),
-                        child:const Center(
+                        child: Center(
                             child: Text(
-                          "Choose Time",
-                          style: TextStyle(
+                          "Choose Time".tr(),
+                          style: const TextStyle(
                               color: Colors.white, fontSize: 16),
                         )),
                       ),
@@ -72,10 +73,10 @@ class button1 extends StatelessWidget {
                                       title:
                                       Column(
                                         children: [
-                                          const 
+
                                           Text(
-                                            "Choose time",
-                                            style: TextStyle(
+                                            "Choose time".tr(),
+                                            style: const TextStyle(
                                                 color: Colors.white38,
                                                 fontSize: 16),
                                           ),
@@ -174,12 +175,12 @@ class button1 extends StatelessWidget {
                                                           4),
                                                       color: Colors
                                                           .transparent),
-                                                  child: const Center(
+                                                  child:  Center(
                                                       child: TextButton(
                                                           onPressed: null,
                                                           child: Text(
-                                                            "Cancel",
-                                                            style: TextStyle(
+                                                            "Cancel".tr(),
+                                                            style: const TextStyle(
                                                                 color: Color(
                                                                     0xff8577ff),
                                                                 fontSize:
@@ -201,10 +202,10 @@ class button1 extends StatelessWidget {
                                                           4),
                                                       color: const Color(
                                                           0xff8577ff)),
-                                                  child: const Center(
+                                                  child:  Center(
                                                       child: Text(
-                                                        "Save",
-                                                        style: TextStyle(
+                                                        "Save".tr(),
+                                                        style: const TextStyle(
                                                             color:
                                                             Colors.white,
                                                             fontSize: 16),
@@ -235,7 +236,7 @@ class button1 extends StatelessWidget {
           builder: ((context, child) => Theme(
               data: Theme.of(context).copyWith(
                   dialogBackgroundColor: AppColors.C_363636,
-                  colorScheme: ColorScheme.dark()),
+                  colorScheme: const ColorScheme.dark()),
               child: child!)),
           context: context,
           initialEntryMode: DatePickerEntryMode.calendarOnly,

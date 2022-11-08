@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -18,16 +19,16 @@ class textfield1 extends StatelessWidget {
           title = value;
         },
         style: const TextStyle(color: Colors.white70),
-        decoration: const InputDecoration(
-          hintText: 'Title',
-          focusColor: Color(0xff868686),
-          hintStyle: TextStyle(color: Colors.white70),
+        decoration:  InputDecoration(
+          hintText: 'Title'.tr(),
+          focusColor: const Color(0xff868686),
+          hintStyle: const TextStyle(color: Colors.white70),
           filled: true,
           fillColor: Colors.transparent,
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
               borderSide:
                   BorderSide(color: Colors.white12, width: 2)),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
               borderSide:
                   BorderSide(color: Colors.white12, width: 2)),
           enabledBorder: InputBorder.none,

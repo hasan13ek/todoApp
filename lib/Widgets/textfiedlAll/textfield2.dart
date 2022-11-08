@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,15 +18,15 @@ class textfield2 extends StatelessWidget {
            desc = value;
          },
          style: const TextStyle(color: Colors.white70),
-         decoration:const InputDecoration(
-           hintText: 'Description',
-           hintStyle: TextStyle(color: Colors.white38),
+         decoration: InputDecoration(
+           hintText: 'Description'.tr(),
+           hintStyle: const TextStyle(color: Colors.white38),
            filled: true,
            fillColor: Colors.transparent,
-           border: OutlineInputBorder(
+           border: const OutlineInputBorder(
                borderSide:
                    BorderSide(color: Colors.white12, width: 2)),
-           focusedBorder: OutlineInputBorder(
+           focusedBorder: const OutlineInputBorder(
                borderSide:
                    BorderSide(color: Colors.white12, width: 2)),
            enabledBorder: InputBorder.none,

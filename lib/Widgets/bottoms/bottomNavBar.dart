@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:first_lesson/Widgets/nimadirochibkur.dart';
+import 'package:first_lesson/screens/profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:first_lesson/screens/main_page.dart';
@@ -19,41 +21,44 @@ class _bottomNavBarState extends State<bottomNavBar> {
   Widget build(BuildContext context) {
     return
       BottomNavigationBar(
-      currentIndex: _selectedIndex,
-      onTap: (index) {
-        setState(() {
-          _selectedIndex = index;
-        });
-      },
-      iconSize: 28,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.white.withOpacity(0.50),
-      backgroundColor: Color(0xff363636),
-      type: BottomNavigationBarType.fixed,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home_filled),
-          label: 'Index',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_month),
-          label: 'Calendar',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-           null
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+            if(index==4){
+              Navigator.push(context, MaterialPageRoute(builder: (_)=>ProfilePage()));
+            }
+          });
+        },
+        iconSize: 28,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white.withOpacity(0.50),
+        backgroundColor: const Color(0xff363636),
+        type: BottomNavigationBarType.fixed,
+        items:  [
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.home_filled),
+            label: 'Index'.tr(),
           ),
-          label: 'Add',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.watch_later_outlined),
-          label: 'Focus',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person_outline),
-          label: 'Profile',
-        ),
-      ],
-    );
+           BottomNavigationBarItem(
+            icon: const Icon(Icons.calendar_month),
+            label: 'Calendar'.tr(),
+          ),
+           BottomNavigationBarItem(
+            icon: const Icon(
+                null
+            ),
+            label: 'Add'.tr(),
+          ),
+           BottomNavigationBarItem(
+            icon: const Icon(Icons.watch_later_outlined),
+            label: 'Focus'.tr(),
+          ),
+           BottomNavigationBarItem(
+            icon: const Icon(Icons.person_outline),
+            label: 'Profile'.tr(),
+          ),
+        ],
+      );
   }
 }

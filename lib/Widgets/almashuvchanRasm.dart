@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 
 class almashuvchanRasm extends StatelessWidget {
@@ -20,18 +21,18 @@ class almashuvchanRasm extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          const Text(
-            "What do you want to do today?",
+           Text(
+            "What do you want to do today?".tr(),
             style:
-                TextStyle(color: Color(0xff868686), fontSize: 20),
+              const  TextStyle(color: Color(0xff868686), fontSize: 20),
           ),
           const SizedBox(
             height: 10,
           ),
-          const Text(
-            "Tap + to add your tasks",
+           Text(
+            "Tap + to add your tasks".tr(),
             style:
-                TextStyle(color: Color(0xff868686), fontSize: 16),
+              const  TextStyle(color: Color(0xff868686), fontSize: 16),
           ),
         ],
       ),

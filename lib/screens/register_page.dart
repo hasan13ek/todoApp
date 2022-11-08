@@ -1,6 +1,7 @@
-import 'package:first_lesson/screens/main_page.dart';
-import 'package:first_lesson/screens/register_page.dart';
+
+import 'package:first_lesson/screens/splash_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'ha_chizing.dart';
 import 'login_page.dart';
@@ -33,7 +34,7 @@ class _LoginPageState extends State<RegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text("Register",style: TextStyle(color: Colors.white,fontSize: 32),),
-                 SizedBox(height: MediaQuery.of(context).size.height*0.022,),
+                SizedBox(height: MediaQuery.of(context).size.height*0.022,),
                 Text("Username",style: TextStyle(color: Colors.white.withOpacity(0.8),fontSize: 16),),
                 Padding(
                   padding:
@@ -47,7 +48,7 @@ class _LoginPageState extends State<RegisterPage> {
                       return null;
                     },
                     decoration: const InputDecoration(
-                      filled: true,
+                        filled: true,
                         fillColor: Colors.white12,
                         focusColor: Color(0xff868686),
                         border: OutlineInputBorder(
@@ -76,7 +77,7 @@ class _LoginPageState extends State<RegisterPage> {
                       return null;
                     },
                     decoration: const InputDecoration(
-                      filled: true,
+                        filled: true,
                         fillColor: Colors.white12,
                         focusColor: Color(0xff868686),
                         border: OutlineInputBorder(
@@ -105,7 +106,7 @@ class _LoginPageState extends State<RegisterPage> {
                       return null;
                     },
                     decoration: const InputDecoration(
-                      filled: true,
+                        filled: true,
                         fillColor: Colors.white12,
                         focusColor: Color(0xff868686),
                         border: OutlineInputBorder(
@@ -120,10 +121,11 @@ class _LoginPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                 SizedBox(height: MediaQuery.of(context).size.height*0.032,),
+                SizedBox(height: MediaQuery.of(context).size.height*0.032,),
                 InkWell(
                   onTap: (){
                     if(_formKey.currentState!.validate()){
+                      saveLogin(context);
                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const HaCHizing()), (route) => false);
 
                     }
@@ -212,4 +214,11 @@ class _LoginPageState extends State<RegisterPage> {
       ),
     );
   }
+}
+
+void saveLogin(context)async{
+  SharedPreferences _pref = await SharedPreferences.getInstance();
+  _pref.setBool("isLoggedIn", true);
+
+  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
 }

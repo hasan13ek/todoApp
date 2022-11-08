@@ -1,7 +1,10 @@
 import 'package:first_lesson/screens/ha_chizing.dart';
 import 'package:first_lesson/screens/main_page.dart';
 import 'package:first_lesson/screens/register_page.dart';
+import 'package:first_lesson/screens/splash_page.dart';
+import 'package:first_lesson/service/storage_service.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -9,9 +12,14 @@ class LoginPage extends StatefulWidget {
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
+String accountName1 = "";
 final _formKey = GlobalKey<FormState>();
 class _LoginPageState extends State<LoginPage> {
   @override
+  void initState() {
+    super.initState();
+    accountName1 = StorageService.getString("accountName1");
+  }
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
@@ -37,6 +45,9 @@ class _LoginPageState extends State<LoginPage> {
                   padding:
                   const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
                   child: TextFormField(
+                    onChanged: (val){
+                      accountName1=val;
+                    },
                     style: const TextStyle(color: Colors.white),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -45,18 +56,18 @@ class _LoginPageState extends State<LoginPage> {
                       return null;
                     },
                     decoration: const InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white12,
-                      focusColor: Color(0xff868686),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white10, width: 1.3),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(6)),
-                        borderSide: BorderSide(color: Colors.white10, width: 1.3),
-                      ),
-                      labelText: 'Username',
-                      labelStyle: TextStyle(color: Color(0xff868686))
+                        filled: true,
+                        fillColor: Colors.white12,
+                        focusColor: Color(0xff868686),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white10, width: 1.3),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(6)),
+                          borderSide: BorderSide(color: Colors.white10, width: 1.3),
+                        ),
+                        labelText: 'Username',
+                        labelStyle: TextStyle(color: Color(0xff868686))
                     ),
                   ),
                 ),
@@ -74,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                       return null;
                     },
                     decoration: const InputDecoration(
-                      filled: true,
+                        filled: true,
                         fillColor: Colors.white12,
                         focusColor: Color(0xff868686),
                         border: OutlineInputBorder(
@@ -93,8 +104,8 @@ class _LoginPageState extends State<LoginPage> {
                 InkWell(
                   onTap: (){
                     if(_formKey.currentState!.validate()){
+                      saveLogin(context);
                       showModalBottomSheet(backgroundColor:const Color(0xff121212),context: context, builder: (BuildContext context){
-
                         return const HaCHizing();
                       });
                     }
@@ -183,4 +194,10 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+void saveLogin(context)async{
+  SharedPreferences _pref = await SharedPreferences.getInstance();
+  _pref.setBool("isLoggedIn", true);
+
+  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
 }

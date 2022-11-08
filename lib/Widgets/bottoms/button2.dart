@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:first_lesson/models/imgModels.dart';
 import 'package:first_lesson/screens/main_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,12 +20,12 @@ class button2 extends StatelessWidget {
                 width: 350,
                 height: 350,
                 child: AlertDialog(
-                  backgroundColor: Color(0xff363636),
+                  backgroundColor: const Color(0xff363636),
                   title: Column(
                     children: [
-                      const Text(
-                        "Choose category ",
-                        style: TextStyle(color: Colors.white),
+                       Text(
+                        "Choose category ".tr(),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       const SizedBox(
                         height: 6,
@@ -110,12 +111,12 @@ class button2 extends StatelessWidget {
                                     borderRadius:
                                     BorderRadius.circular(4),
                                     color: Colors.transparent),
-                                child:const Center(
+                                child: Center(
                                     child: TextButton(
                                         onPressed: null,
                                         child: Text(
-                                          "Cancel",
-                                          style: TextStyle(
+                                          "Cancel".tr(),
+                                          style: const TextStyle(
                                               color:
                                               Color(0xff8577ff),
                                               fontSize: 16),
@@ -135,11 +136,11 @@ class button2 extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     borderRadius:
                                     BorderRadius.circular(4),
-                                    color: Color(0xff8577ff)),
-                                child:const Center(
+                                    color: const Color(0xff8577ff)),
+                                child: Center(
                                     child: Text(
-                                      "Save",
-                                      style: TextStyle(
+                                      "Save".tr(),
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 16),
                                     )),

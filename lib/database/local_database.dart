@@ -37,7 +37,8 @@ class LocalDatabase {
             ${TodoFields.description} $textType, 
             ${TodoFields.date} $textType,
             ${TodoFields.priority} $textType,
-            ${TodoFields.isCompleted} $textType
+            ${TodoFields.isCompleted} $intType,
+            ${TodoFields.hasan} $intType
             )
             ''');
       },
@@ -64,21 +65,53 @@ class LocalDatabase {
     return updatedTask.copyWith(id: id);
   }
 
-  static Future<List<TodoModel>> getList() async {
+  // static Future<List<TodoModel>> getList() async {
+  //   var database = await getInstance.getDb();
+  //   var listOfTodos = await database.query(tableName, columns: [
+  //     TodoFields.id,
+  //     TodoFields.title,
+  //     TodoFields.description,
+  //     TodoFields.date,
+  //     TodoFields.priority,
+  //     TodoFields.isCompleted
+  //   ]);
+  //
+  //   var list = listOfTodos.map((e) => TodoModel.fromJson(e)).toList();
+  //
+  //   return list;
+  // }
+
+  static Future<List<TodoModel>> getTodosIsCompleted(int hasan,
+      {String title = ''}) async {
     var database = await getInstance.getDb();
-    var listOfTodos = await database.query(tableName, columns: [
-      TodoFields.id,
-      TodoFields.title,
-      TodoFields.description,
-      TodoFields.date,
-      TodoFields.priority,
-      TodoFields.isCompleted
-    ]);
 
-    var list = listOfTodos.map((e) => TodoModel.fromJson(e)).toList();
+    if (title.isNotEmpty) {
+      var listOfTodos = await database.query(
+        tableName,
+        where: 'title LIKE ? AND ${TodoFields.hasan} = ?',
+        whereArgs: ['%$title%', '$hasan'],
+      );
+      var list = listOfTodos.map((e) => TodoModel.fromJson(e)).toList();
+      return list;
+    } else {
+      var listOfTodos = await database.query(tableName,
+          columns: [
+            TodoFields.id,
+            TodoFields.title,
+            TodoFields.description,
+            TodoFields.date,
+            TodoFields.priority,
+            TodoFields.isCompleted,
+            TodoFields.hasan
+          ],
+          where: '${TodoFields.hasan} = ?',
+          whereArgs: ['$hasan']);
 
-    return list;
+      var list = listOfTodos.map((e) => TodoModel.fromJson(e)).toList();
+      return list;
+    }
   }
+
 
   static Future<List<TodoModel>> getTaskByTitle({String title = ''}) async {
     var database = await getInstance.getDb();
@@ -98,7 +131,8 @@ class LocalDatabase {
         TodoFields.description,
         TodoFields.date,
         TodoFields.priority,
-        TodoFields.isCompleted
+        TodoFields.isCompleted,
+        TodoFields.hasan
       ]);
 
       var list = listOfTodos.map((e) => TodoModel.fromJson(e)).toList();

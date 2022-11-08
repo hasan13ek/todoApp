@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:first_lesson/Widgets/bottoms/button1.dart';
 import 'package:first_lesson/Widgets/bottoms/button2.dart';
 import 'package:first_lesson/Widgets/bottoms/button3.dart';
@@ -6,6 +7,7 @@ import 'package:first_lesson/database/local_database.dart';
 import 'package:first_lesson/models/todo_model.dart';
 import 'package:first_lesson/screens/main_page.dart';
 import 'package:flutter/material.dart';
+
 class UpdateTaskWidget extends StatefulWidget {
   TodoModel todo;
   VoidCallback onUpdatedTask;
@@ -24,7 +26,6 @@ class _UpdateTaskWidgetState extends State<UpdateTaskWidget> {
   final formKey = GlobalKey<FormState>();
   String newTitle = "";
   String newDescription = "";
-  DateTime? taskDate;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,13 @@ class _UpdateTaskWidgetState extends State<UpdateTaskWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          const  Text("Title",style: TextStyle(color: Colors.white),),
-            const  SizedBox(height: 8,),
+             Text(
+              "Title".tr(),
+              style:const TextStyle(color: Colors.white),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
             TextFormField(
               initialValue: widget.todo.title,
               onSaved: (val) {
@@ -44,25 +50,31 @@ class _UpdateTaskWidgetState extends State<UpdateTaskWidget> {
               },
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(borderSide:const BorderSide(color: Color(0xff565656)),borderRadius: BorderRadius.circular(16)),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Color(0xff565656)),
+                    borderRadius: BorderRadius.circular(16)),
                 errorBorder: InputBorder.none,
                 disabledBorder: InputBorder.none,
-                hintText: 'Title',
+                hintText: 'Title'.tr(),
                 focusColor: const Color(0xff868686),
                 hintStyle: const TextStyle(color: Colors.white70),
                 filled: true,
                 fillColor: const Color(0xff565656),
-                border:  const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white12,width: 2),
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white12, width: 2),
                 ),
-                focusedBorder:  const OutlineInputBorder(
-                    borderSide:
-                    BorderSide(color: Colors.white12, width: 2)),
+                focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white12, width: 2)),
               ),
             ),
             const SizedBox(height: 12),
-          const  Text("Description",style: TextStyle(color: Colors.white),),
-          const  SizedBox(height: 8,),
+             Text(
+              "Description".tr(),
+              style:const TextStyle(color: Colors.white),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
             TextFormField(
               style: const TextStyle(color: Colors.white),
               initialValue: widget.todo.description,
@@ -70,25 +82,31 @@ class _UpdateTaskWidgetState extends State<UpdateTaskWidget> {
                 newDescription = val ?? "";
               },
               decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(borderSide:const BorderSide(color: Color(0xff565656)),borderRadius: BorderRadius.circular(16)),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Color(0xff565656)),
+                    borderRadius: BorderRadius.circular(16)),
                 errorBorder: InputBorder.none,
                 disabledBorder: InputBorder.none,
-                hintText: 'Title',
+                hintText: 'Title'.tr(),
                 focusColor: const Color(0xff868686),
                 hintStyle: const TextStyle(color: Colors.white70),
                 filled: true,
                 fillColor: const Color(0xff565656),
-                border:  const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white12,width: 2),
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white12, width: 2),
                 ),
-                focusedBorder:  const OutlineInputBorder(
-                    borderSide:
-                    BorderSide(color: Colors.white12, width: 2)),
+                focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white12, width: 2)),
               ),
             ),
-           const SizedBox(height: 42,),
+            const SizedBox(
+              height: 42,
+            ),
             Row(
               children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.04,
+                ),
                 const button1(),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.024,
@@ -111,9 +129,11 @@ class _UpdateTaskWidgetState extends State<UpdateTaskWidget> {
                       id: widget.todo.id,
                       title: newTitle,
                       description: newDescription,
-                      date: "${GetDate.getdate.soat}  :  ${GetDate.getdate.minut}  ${GetDate.getdate.ap}",
+                      date:
+                          "${GetDate.getdate.soat}  :  ${GetDate.getdate.minut}  ${GetDate.getdate.ap}",
                       priority: propirty,
                       isCompleted: zaybal,
+                      hasan: 1,
                     );
                     LocalDatabase.updateTaskById(newTodo);
                     widget.onUpdatedTask();
@@ -126,7 +146,6 @@ class _UpdateTaskWidgetState extends State<UpdateTaskWidget> {
                 ),
               ],
             ),
-
           ],
         ),
       ),

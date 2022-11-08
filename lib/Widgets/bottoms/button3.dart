@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -22,12 +23,12 @@ class button3 extends StatelessWidget {
                     width: 350,
                     height: 350,
                     child: AlertDialog(
-                      backgroundColor: Color(0xff363636),
+                      backgroundColor: const Color(0xff363636),
                       title: Column(
                         children: [
-                         const Text(
-                            "Task priority",
-                            style: TextStyle(color: Colors.white),
+                          Text(
+                            "Task priority".tr(),
+                            style: const TextStyle(color: Colors.white),
                           ),
                           const SizedBox(
                             height: 6,
@@ -58,7 +59,7 @@ class button3 extends StatelessWidget {
                                     onTap: () {
                                       state(() {
                                         nimadir=index;
-                                        propirty = (index+1).toString();
+                                      
                                         isOn=!isOn;
                                       });
                                     },
@@ -113,12 +114,12 @@ class button3 extends StatelessWidget {
                                         borderRadius:
                                         BorderRadius.circular(4),
                                         color: Colors.transparent),
-                                    child:const Center(
+                                    child: Center(
                                         child: TextButton(
                                             onPressed: null,
                                             child: Text(
-                                              "Cancel",
-                                              style: TextStyle(
+                                              "Cancel".tr(),
+                                              style: const TextStyle(
                                                   color:
                                                   Color(0xff8577ff),
                                                   fontSize: 16),
@@ -138,16 +139,17 @@ class button3 extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         borderRadius:
                                         BorderRadius.circular(4),
-                                        color: Color(0xff8577ff)),
-                                    child:const Center(
+                                        color: const Color(0xff8577ff)),
+                                    child: Center(
                                         child: Text(
-                                          "Save",
-                                          style: TextStyle(
+                                          "Save".tr(),
+                                          style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 16),
                                         )),
                                   ),
                                   onTap: () {
+                                     propirty = nimadir.toString();
                                     Navigator.pop(context);
                                   },
                                 ),
